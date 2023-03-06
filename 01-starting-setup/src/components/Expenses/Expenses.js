@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from './ExpensesList';
 import "./Expenses.css";
 
 const Expenses = (props) => {
@@ -18,18 +18,7 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  let expensesContent = <p>No expenses found.</p>;
-
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((item) => (
-      <ExpenseItem
-        key={item.id} // react가 전체를 업데이트하는 성능 저하를 막기 위해 고유값을 사용
-        title={item.title}
-        amount={item.amount}
-        date={item.date}
-      />
-    ));
-  }
+  
 
   return (
     <div>
@@ -38,7 +27,7 @@ const Expenses = (props) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {expensesContent}
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
